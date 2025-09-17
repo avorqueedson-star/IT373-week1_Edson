@@ -1,0 +1,18 @@
+[/] Install Python → python --version
+
+[/] Make virtual env → python -m venv venv
+
+[/] Activate venv → venv\Scripts\activate (Windows)
+
+[/] Install Django → pip install django
+
+[/] Start project → django-admin startproject projectname
+
+[/] Go inside project → cd projectname
+
+[/] Run server → python manage.py runserver
+
+[/] Make app → python manage.py startapp appname
+
+[/] Add app in settings.py → INSTALLED_APPS
+
