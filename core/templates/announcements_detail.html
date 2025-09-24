@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Official Announcement | {{ announcement.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            
+            <!-- Header Banner -->
+            <div class="alert alert-danger text-center p-4 mb-4 shadow">
+                <h2 class="fw-bold mb-0">
+                    📢 Official School Announcement
+                </h2>
+            </div>
+            
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'announcements_list' %}">Announcements</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ announcement.title }}</li>
+                </ol>
+            </nav>
+            
+            <article class="card border-danger shadow">
+                <div class="card-body">
+                    <h1 class="card-title display-6 text-danger fw-bold">
+                        {{ announcement.title }}
+                    </h1>
+                    <p class="card-text text-muted">
+                        <small><i class="bi bi-calendar-event"></i> Published on {{ announcement.created_at|date:"F d, Y" }}</small>
+                    </p>
+                    
+                    <hr>
+                    
+                    <div class="card-text mt-4">
+                        <div id="short-content">
+                            <p class="lead">{{ announcement.short_content }}</p>
+                        </div>
+                        <div id="full-content" style="display: none;">
+                            {{ announcement.content|linebreaks }}
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 text-center">
+                        <button id="toggle-btn" class="btn btn-lg btn-outline-danger px-4" onclick="toggleContent()">
+                            Read More
+                        </button>
+                    </div>
+                </div>
+            </article>
+            
+            <div class="mt-4">
+                <a href="{% url 'announcements_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Announcements
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleContent() {
+    const shortContent = document.getElementById('short-content');
+    const fullContent = document.getElementById('full-content');
+    const toggleBtn = document.getElementById('toggle-btn');
+    
+    if (fullContent.style.display === 'none') {
+        shortContent.style.display = 'none';
+        fullContent.style.display = 'block';
+        toggleBtn.textContent = 'Show Less';
+        toggleBtn.classList.remove('btn-outline-danger');
+        toggleBtn.classList.add('btn-outline-secondary');
+    } else {
+        shortContent.style.display = 'block';
+        fullContent.style.display = 'none';
+        toggleBtn.textContent = 'Read More';
+        toggleBtn.classList.remove('btn-outline-secondary');
+        toggleBtn.classList.add('btn-outline-danger');
+    }
+}
+</script>
+{% endblock %}

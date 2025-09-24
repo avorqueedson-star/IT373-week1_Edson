@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Announcements | Edson P. Avorque{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h1 class="display-5 fw-bold mb-4">📢 Latest Announcements</h1>
+            
+            {% if announcements %}
+                {% for announcement in announcements %}
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold text-primary">{{ announcement.title }}</h4>
+                        <p class="card-text text-muted mb-2">
+                            <small><i class="bi bi-calendar-event"></i> Published on {{ announcement.created_at|date:"F d, Y" }}</small>
+                        </p>
+                        
+                        <!-- Short Summary -->
+                        <p class="card-text">
+                            {{ announcement.short_content }}
+                        </p>
+                        
+                        <!-- Preview of Full Content -->
+                        <p class="card-text text-secondary">
+                            {{ announcement.content|truncatewords:30 }}
+                        </p>
+                        
+                        <a href="{% url 'announcements_detail' announcement.id %}" class="btn btn-outline-primary btn-sm">
+                            Read Full Announcement
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-info text-center" role="alert">
+                    <h4 class="alert-heading">No Announcements</h4>
+                    <p>There are currently no announcements available. Please check back later.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -16,12 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import handler404
 from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', views.home ,name="home"),
-    path('about/', views.about,name="about"),
-    path('', views.base, name="base"),
-
+    path('', views.home, name="home"),
+    path('about/', views.about, name="about"),
+    path('announcements/', views.announcements_list, name="announcements_list"),
+    path('announcements/<int:id>/', views.announcements_detail, name="announcements_detail"),
 ]
+
+# Custom 404 handler
+handler404 = views.custom_404
